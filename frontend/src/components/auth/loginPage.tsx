@@ -23,10 +23,10 @@ export default function LoginPage() {
     mutation
       .mutateAsync(body)
       .then((data) => {
-        dispatch(loginAction({ id: data.user._id, token: data.user.token }));
+        dispatch(loginAction({ id: data.userData.id, token: data.userData.token }));
         localStorage.setItem(
           "userInfo",
-          JSON.stringify({ id: data.user._id, token: data.user.token })
+          JSON.stringify({ id: data.userData.id, token: data.userData.token })
         );
       })
       .catch((error) => {
