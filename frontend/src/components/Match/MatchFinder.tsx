@@ -236,9 +236,7 @@ const handleUnpinMatch = async () => {
                     <button
                       className="w-full px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-full hover:from-rose-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
                       onClick={() =>
-                        navigate(`/chat/${matchId}/${userId}`, {
-                          state: { partner: match },
-                        })
+                        navigate(`/chat/${matchId}/${userId}`)
                       }
                     >
                       <div className="flex items-center justify-center space-x-2">

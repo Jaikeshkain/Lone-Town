@@ -1,12 +1,10 @@
 import { useGetUser } from "@/lib/useGetUser"
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ChatBox from "./ChatBox";
 import { ArrowLeft, Heart, MessageCircleHeart, Sparkles, Users } from "lucide-react";
 
 export const ChatPage=()=>{
     const navigate=useNavigate()
-    const location=useLocation()
-    const {partner}=location.state
     const { matchId, userId } = useParams();
     const userData=useGetUser()
     const goBack = () => {
@@ -144,7 +142,7 @@ export const ChatPage=()=>{
               </div>
             </div>
 
-            <ChatBox matchId={matchId || ""} userId={userId || ""} partner={partner}/>
+            <ChatBox matchId={matchId || ""} userId={userId || ""}/>
           </div>
 
           {/* Love Tips Section */}

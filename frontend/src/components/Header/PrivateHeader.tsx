@@ -27,7 +27,6 @@ const LoneTownNavBar = () => {
 
 
   const userData=useGetUser()
-  console.log(userData)
 
   const navigationItems = [
     { id: "dashboard", label: "Dashboard", icon: Home, href: "/dashboard" },

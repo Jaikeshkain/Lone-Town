@@ -14,12 +14,11 @@ interface Message {
   timestamp: Date;
 }
 
-const ChatBox = ({matchId,userId,partner}:{matchId:string,userId:string,partner:any}) => {
+const ChatBox = ({matchId,userId}:{matchId:string,userId:string}) => {
   const navigate = useNavigate()
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
-  console.log(partner)
   const storedData = localStorage.getItem("userInfo");
   const token = storedData ? JSON.parse(storedData)?.token : null;
 
