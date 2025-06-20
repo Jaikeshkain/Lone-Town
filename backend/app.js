@@ -15,6 +15,10 @@ connectDB();
 const authRouter=require("./routes/authRoutes")
 const stateRouter=require("./routes/stateRoutes");
 const matchRouter=require("./routes/matchRoutes");
+const messageRouter = require("./routes/messageRoutes");
+
+const saveMessageToDB = require("./utils/saveMessgeToDB");
+
 
 // Initialize express app
 const app = express();
@@ -41,6 +45,9 @@ unfreezeUsersJob.start()
 app.use("/api/auth",authRouter)
 app.use("/api/state", stateRouter);
 app.use("/api/match",matchRouter);
+app.use("/api/message", messageRouter);
+
+
 
 //socket.io events
 io.on("connection",(socket)=>{
@@ -50,15 +57,17 @@ io.on("connection",(socket)=>{
   socket.on("joinMatch",({matchId})=>{
     socket.join(matchId);
     console.log(`User ${socket.id} joined room:${matchId}`);
+    
   })
 
   //Receive + broadcast messages
-  socket.on("sendMessage",({matchId,senderId,message})=>{
-    //Broadcast to other user in same match room
-    socket.to(matchId).emit("receiveMessage",{
-      senderId,message,timestamp:new Date()
-    });
-  })
+socket.on("sendMessage", async ({ matchId, senderId, message }) => {
+  // Save to DB
+  const saved = await saveMessageToDB({ matchId, senderId, message });
+
+  // Emit to everyone in the room (sender + receiver)
+  io.to(matchId).emit("receiveMessage", saved);
+});
 
   //socket disconnect
   socket.on("disconnect",()=>{

@@ -5,6 +5,7 @@ interface TraitFormProps {
 }
 
 const TraitForm: React.FC<TraitFormProps> = ({ onSubmit }) => {
+  console.log(onSubmit)
   return (
     <form className="trait-form">
       <h2>Tell us about yourself</h2>

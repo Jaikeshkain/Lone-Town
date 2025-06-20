@@ -28,14 +28,13 @@ export default function LoginPage() {
           "userInfo",
           JSON.stringify({ id: data.userData.id, token: data.userData.token })
         );
+        navigate("/")
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
       })
-      .finally(() => {
-        navigate("/");
-      });
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-100 via-pink-50 to-red-100 flex items-center justify-center p-4">
@@ -74,9 +73,23 @@ export default function LoginPage() {
                 Your heart's journey continues here ✨
               </p>
             </div>
-
             {/* Login form */}
             <div className="space-y-6">
+              {mutation.isError && (
+                <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-xl">
+                  <p className="text-red-700">{mutation.error.message}</p>
+                </div>
+              )}
+              {mutation.isSuccess && (
+                <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-xl">
+                  <p className="text-green-700">{mutation.data.message}</p>
+                </div>
+              )}
+              {mutation.isPending && (
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-xl">
+                  <p className="text-yellow-700">Logging in...</p>
+                </div>
+              )}
               {/* Email field */}
               <div className="space-y-2">
                 <label

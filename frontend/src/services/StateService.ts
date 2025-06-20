@@ -25,8 +25,8 @@ export const unpinMatchAPI = async (token: string) => {
       }
     );
     return res.data;
-  } catch (err) {
+  } catch (err:any) {
     console.error(err);
-    throw new Error("Failed to unpin match");
+    throw new Error(err?.response?.data?.message || "Failed to unpin match");
   }
 };

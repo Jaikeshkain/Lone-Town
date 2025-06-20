@@ -19,3 +19,12 @@ export const findMatchAPI = async (token: string) => {
   }
 };
 
+export const getMatchByIdAPI=async(currentMatch:string)=>{
+  try {
+    const response=await axios.get(`${API_URL}/api/match/getMatchById/${currentMatch}`)
+    return response.data
+  } catch (error:any) {
+    throw new Error(error.response.data.message)
+  }
+}
+

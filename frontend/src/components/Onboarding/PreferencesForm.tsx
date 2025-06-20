@@ -4,7 +4,8 @@ interface PreferencesFormProps {
   onSubmit: (preferences: Record<string, any>) => void;
 }
 
-const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit }) => {
+const PreferencesForm: React.FC<PreferencesFormProps> = ({ onSubmit}) => {
+  console.log(onSubmit)
   return (
     <form className="preferences-form">
       <h2>Your Preferences</h2>

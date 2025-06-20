@@ -6,6 +6,7 @@ interface ReviewSummaryProps {
 }
 
 const ReviewSummary: React.FC<ReviewSummaryProps> = ({ traits, preferences }) => {
+  console.log(traits,preferences)
   return (
     <div className="review-summary">
       <h2>Review Your Profile</h2>

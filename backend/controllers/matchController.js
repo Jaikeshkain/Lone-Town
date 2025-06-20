@@ -84,9 +84,26 @@ exports.findMatch = async (req, res) => {
         name: bestMatch.name,
         traits: bestMatch.traits,
       },
+      partnerData:bestMatch
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+//fetch match by match id
+exports.getMatchById=async(req,res)=>{
+  try {
+    const {currentMatch}=req.params
+    const matchFound=await Match.findById(currentMatch).populate("user1").populate("user2")
+    if(!matchFound){
+      return res.status(401).json({message:"Match Not Found"})
+    }
+    console.log(matchFound)
+    res.status(200).json({match:matchFound})
+  } catch (error) {
+    console.log
+    res.status(500).json({message:error.message})
+  }
+}

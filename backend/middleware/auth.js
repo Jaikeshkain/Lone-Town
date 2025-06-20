@@ -8,15 +8,11 @@ const isAuthenticated=async(req,res,next)=>{
         }
         const token=req.headers.authorization.split(" ")[1];
         const decoded=jwt.verify(token,process.env.JWT_SECRET);
-        const user=await User.findById(decoded.id);
+        const user=await User.findById(decoded.id).select("-password")
         if(!user){
             return res.status(401).json({message:"Unauthorized"});
         }
-        req.user={
-            id:user._id,
-            name:user.name,
-            email:user.email
-        };
+        req.user=user;
         next();
     } catch (error) {
         console.log(error);

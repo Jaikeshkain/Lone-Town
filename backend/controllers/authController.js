@@ -48,3 +48,25 @@ exports.login = async (req,res)=>{
         res.status(500).json({message:"Internal Server Error",error:error.message});
     }
 }
+
+//get user
+exports.getUserData=async(req,res)=>{
+    try {
+        if(!req.user){
+            return res.status(404).json({message:"User not found"})
+        }
+        res.status(200).json({user:req.user})
+    } catch (error) {
+        res.status(500).json({message:"Something went wrong"})
+    }
+}
+
+exports.logout=(req,res)=>{
+    try {
+      res.clearCookie("token");
+      console.log("Logout successful");
+      res.status(200).json({ message: "Logout successful" });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+}

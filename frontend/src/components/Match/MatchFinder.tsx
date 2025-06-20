@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import MatchCard from "./MatchCard";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getState, unpinMatchAPI } from "@/services/StateService";
+import { getState} from "@/services/StateService";
 import { findMatchAPI } from "@/services/MatchService";
 // Note: useNavigate would be imported from react-router-dom in actual implementation
 import { Heart, Sparkles, MessageCircle, UserX, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import CustomAlertDialog from "../Global Components/AlertDialogue";
 import { format } from "date-fns";
+import { useUnpin } from "@/lib/useUnpin";
 
 type Traits = {
   introvertExtrovert: string;
@@ -31,10 +32,15 @@ const MatchFinder = () => {
   >("loading");
   const [freezeUntil, setFreezeUntil] = useState<Date | null>(null);
   const [match, setMatch] = useState<MatchUser | null>(null);
+  const [matchId,setMatchId]=useState("")
   const [message, setMessage] = useState("");
+
 
   const storedData = localStorage.getItem("userInfo");
   const token = storedData ? JSON.parse(storedData)?.token : null;
+  const userId = storedData ? JSON.parse(storedData)?.id : null;
+
+
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["fetch state"],
@@ -46,6 +52,7 @@ const MatchFinder = () => {
     if (data?.state) {
       setUserState(data.state);
       setFreezeUntil(new Date(data.freezeUntil));
+      setMatchId(data.currentMatch)
     }
   }, [data]);
 
@@ -61,25 +68,26 @@ const MatchFinder = () => {
     },
   });
 
+  // console.log(partner)
   const handleFindMatch = async () => {
     findMatch();
   };
 
   //unpin match
-  const { mutate: unpinMatch } = useMutation({
-    mutationFn: () => unpinMatchAPI(token as string),
-    onSuccess: () => {
-      setMatch(null);
-      navigate(0);
-    },
-    onError: (error) => {
-      setMessage(error.message || "Failed to unpin match");
-    },
-  });
+const { mutateAsync: unpinMatch } = useUnpin(token as string);
 
-  const handleUnpinMatch = async () => {
-    unpinMatch();
-  };
+const handleUnpinMatch = async () => {
+  try {
+    await unpinMatch(); // ✅ This is now awaitable
+    setMatch(null);
+    setMessage("Unpinned successfully.");
+    navigate(0); // or refetch state
+  } catch (err: any) {
+    setMessage("Failed to unpin match.");
+  }
+};
+
+
 
   const hoursUntilFreeze = freezeUntil
     ? Math.max(
@@ -150,8 +158,8 @@ const MatchFinder = () => {
                     meaningful connections.
                   </p>
                   <p className="text-rose-500 font-medium mt-4">
-                    Come back in {hoursUntilFreeze} hours for your next chance at
-                    love!
+                    Come back in {hoursUntilFreeze} hours for your next chance
+                    at love!
                   </p>
                 </div>
               </div>
@@ -198,7 +206,9 @@ const MatchFinder = () => {
                 <div className="text-center">
                   <button
                     className="group px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-lg font-bold rounded-full hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-                    onClick={() => navigate(`/chat/${match.id}`)}
+                    onClick={() =>
+                      navigate(`/chat/${userId}`)
+                    }
                   >
                     <div className="flex items-center space-x-2">
                       <MessageCircle className="w-5 h-5 group-hover:animate-pulse" />
@@ -223,7 +233,14 @@ const MatchFinder = () => {
                   </p>
 
                   <div className="space-y-4">
-                    <button className="w-full px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-full hover:from-rose-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <button
+                      className="w-full px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-full hover:from-rose-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
+                      onClick={() =>
+                        navigate(`/chat/${matchId}/${userId}`, {
+                          state: { partner: match },
+                        })
+                      }
+                    >
                       <div className="flex items-center justify-center space-x-2">
                         <MessageCircle className="w-5 h-5" />
                         <span>Continue Your Conversation</span>
