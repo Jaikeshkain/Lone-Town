@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL="http://localhost:5000"
+const API_URL = "https://lone-town-backend-bfvr.onrender.com";
 export const RegisterAPI=async(formData:any)=>{
     try {
       const response = await axios.post(`${API_URL}/api/auth/register`, formData);
