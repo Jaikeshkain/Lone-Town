@@ -12,7 +12,7 @@ import {
   Home,
   AlertCircleIcon,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogout } from "@/lib/useLogout";
 import { useGetUser } from "@/lib/useGetUser";
 
@@ -179,11 +179,9 @@ const LoneTownNavBar = () => {
             {navigationItems.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.link
+                <Link
                   key={item.id}
-                  href={item.href}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  to={item.href}
                   className="relative flex items-center space-x-2 px-3 py-2 rounded-xl text-gray-700 hover:text-pink-600 hover:bg-pink-50 transition-colors group"
                 >
                   <Icon size={18} />
@@ -197,7 +195,7 @@ const LoneTownNavBar = () => {
                       {item.badge}
                     </motion.div>
                   )}
-                </motion.link>
+                </Link>
               );
             })}
           </div>
