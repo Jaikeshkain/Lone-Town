@@ -179,7 +179,7 @@ const LoneTownNavBar = () => {
             {navigationItems.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.a
+                <motion.link
                   key={item.id}
                   href={item.href}
                   whileHover={{ scale: 1.05 }}
