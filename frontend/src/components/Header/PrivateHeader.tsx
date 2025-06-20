@@ -197,7 +197,7 @@ const LoneTownNavBar = () => {
                       {item.badge}
                     </motion.div>
                   )}
-                </motion.a>
+                </motion.link>
               );
             })}
           </div>
