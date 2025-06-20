@@ -15,11 +15,12 @@ import {
 import { useGetUser } from "@/lib/useGetUser";
 import { useQuery } from "@tanstack/react-query";
 import { getMatchByIdAPI } from "@/services/MatchService";
+import { useNavigate } from "react-router-dom";
 
 const DashboardHome = () => {
+  const navigate=useNavigate()
   const [currentTime, setCurrentTime] = useState(new Date());
   const [freezeTimer, setFreezeTimer] = useState<Date | null>(null);
-  const [user2,setUser2]=useState<any |null>(null)
     const userData = useGetUser();
 
     useEffect(()=>{
@@ -50,10 +51,8 @@ const DashboardHome = () => {
 
     useEffect(()=>{
       if(similarmatch?.user2){
-        setUser2(similarmatch.user2)
       }
     },[similarmatch])
-    console.log(user2)
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -196,6 +195,7 @@ const DashboardHome = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex-1 bg-white text-pink-600 font-semibold py-3 px-4 rounded-xl flex items-center justify-center space-x-2 shadow-lg"
+                onClick={()=>navigate(`/chat/${userData?.currentMatch}/${userData?._id}`)}
               >
                 <MessageCircle size={18} />
                 <span>Continue Chat</span>
