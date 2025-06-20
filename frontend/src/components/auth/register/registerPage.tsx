@@ -5,7 +5,7 @@ import StepReview from "./StepReview";
 import { Brain, CheckCircle, Eye, User, Heart } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { RegisterAPI } from "@/services/UserService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const navigate=useNavigate()
@@ -173,12 +173,12 @@ const RegisterPage = () => {
         <div onClick={()=>navigate("/login")} className="text-center mt-8 text-rose-600 text-sm">
           <p>
             Already spreading love with us?{" "}
-            <a
-              href="#"
+            <Link
+              to="/login"
               className="text-red-600 hover:text-rose-700 hover:underline font-medium transition-colors duration-200"
             >
               Sign in ❤️
-            </a>
+            </Link>
           </p>
         </div>
       </div>

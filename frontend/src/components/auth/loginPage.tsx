@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Heart, Mail, Lock, Sparkles } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { LoginAPI } from "@/services/UserService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginAction } from "@/redux/slice/authSlice";
 
@@ -165,12 +165,12 @@ export default function LoginPage() {
             <div className="mt-8 text-center">
               <p className="text-rose-500/70 text-sm">
                 Don't have an account?
-                <a
-                  href="/register"
+                <Link
+                  to="/register"
                   className="text-rose-600 hover:text-rose-700 font-medium ml-1 transition-colors duration-200"
                 >
                   Create one with love 💖
-                </a>
+                </Link>
               </p>
             </div>
 
