@@ -4,6 +4,32 @@ Lone-Town is a mindful dating app that offers one exclusive match per day, focus
 
 ---
 
+---
+
+## Tech Stack
+
+### Backend
+- **Node.js** & **Express.js** (REST API)
+- **MongoDB** with **Mongoose** (Database)
+- **Socket.io** (Real-time chat)
+- **Cloudinary** (Image uploads)
+- **JWT** (Authentication)
+- **node-cron** (Scheduled jobs)
+
+### Frontend
+- **React** (with TypeScript)
+- **Vite** (Build tool)
+- **Redux Toolkit** (State management)
+- **React Router** (Routing)
+- **Framer Motion** (Animations)
+- **Tailwind CSS** (Styling)
+- **Lucide-react** (Icons)
+- **React Query** (Data fetching/caching)
+- **Socket.io-client** (Real-time chat)
+- **Radix UI** (UI primitives)
+
+---
+
 ## Folder Structure
 
 ```
@@ -67,29 +93,6 @@ Lone-Town/
     └── public/
 ```
 
----
-
-## Tech Stack
-
-### Backend
-- **Node.js** & **Express.js** (REST API)
-- **MongoDB** with **Mongoose** (Database)
-- **Socket.io** (Real-time chat)
-- **Cloudinary** (Image uploads)
-- **JWT** (Authentication)
-- **node-cron** (Scheduled jobs)
-
-### Frontend
-- **React** (with TypeScript)
-- **Vite** (Build tool)
-- **Redux Toolkit** (State management)
-- **React Router** (Routing)
-- **Framer Motion** (Animations)
-- **Tailwind CSS** (Styling)
-- **Lucide-react** (Icons)
-- **React Query** (Data fetching/caching)
-- **Socket.io-client** (Real-time chat)
-- **Radix UI** (UI primitives)
 
 ---
 
