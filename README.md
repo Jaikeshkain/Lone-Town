@@ -4,8 +4,6 @@ Lone-Town is a mindful dating app that offers one exclusive match per day, focus
 
 ---
 
----
-
 ## Tech Stack
 
 ### Backend
